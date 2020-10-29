@@ -1,0 +1,29 @@
+{
+  "name": "gulp-file",
+  "version": "1.0.0",
+  "description": "Gulp file minifying images, reloading browser at file change, compiling Less to .css file",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Frontendcreatives/Gulp-file.git"
+  },
+  "author": "Caroline Engan Johansen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Frontendcreatives/Gulp-file/issues"
+  },
+  "homepage": "https://github.com/Frontendcreatives/Gulp-file#readme",
+  "devDependencies": {
+    "browser-sync": "^2.26.13",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-imagemin": "^7.1.0"
+  },
+  "dependencies": {
+    "gulp-less": "^4.0.1",
+    "gulp-watch": "^5.0.1"
+  }
+}
