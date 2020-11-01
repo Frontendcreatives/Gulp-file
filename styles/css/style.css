@@ -1,5 +1,8 @@
-body {
-  color: #3B3B38;
+html {
+  background: #3B3B38;
+}
+h1 {
+  color: #FF0000;
 }
 h2 {
   color: #FDA50F;
