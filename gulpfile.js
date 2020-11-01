@@ -3,54 +3,53 @@ var less        = require("gulp-less");
 var imagemin    = require("gulp-imagemin");
 var browserSync = require("browser-sync").create();
 var reload      = browserSync.reload;
+var watch       = require("gulp-watch");
+
+// TASK WATCH AND RELOAD BROWSER FILE CHANGES
+
+ gulp.task ("watchReload",["lesscss"], ["imgMini"], function(){
+    
+    browserSync.init({
+       server: {
+            baseDir: "./",
+        }   
+    }); 
+    
+  gulp.watch("./styles/less/**/*.less", ["lesscss"]);
+  gulp.watch("./images/img/*.jpg", ["imgMini"]);
+  gulp.watch("./styles/less/**/*.less").on("change", browserSync.reload);
+  gulp.watch("./images/img/*.jpg").on("change", browserSync.reload);  
+  gulp.watch("./*.html").on("change", browserSync.reload);
+});
+
+// TASK CONVERTING LESS TO CSS
+
+gulp.task("lesscss", function(){
+   return gulp.src("./styles/less/*.less")
+        .pipe(less("style.css"))
+        .pipe(gulp.dest("./styles/css/"))
+        .pipe(browserSync.stream());
+});
 
 
 
 //TASK MINIMIZING IMAGES
- 
- function imgMini(){ 
-    return gulp
-    .src("./img/*")
+  
+gulp.task("imgMini",  function (){ 
+    return gulp.src("./images/img/*.jpg")
     .pipe(imagemin())
-    .pipe(gulp.dest("./images/minify/img"));
+    .pipe(gulp.dest("./images/minify/"))
+    .pipe(browserSync.stream());
      
- }
+ });
 
-gulp.task("imgMini", imgMini);
-gulp.task("watch", ()=>{ 
-gulp.watch("./images/img/*", imgMini);     
-});
-
-
-
-// TASK CONVERTING LESS TO CSS
-
-gulp.task("lesscss", async function(){
-    gulp.src("style/*.less")
-        .pipe(less("style.css"))
-        .pipe(gulp.dest("style/css/"));
-});
-
-
-
-// TASK RELOAD BROWSER FILE CHANGES
-
-
-gulp.task("browser-sync", function() {
-    browserSync.init({
-        server: {
-            baseDir: "./"
-        }
-    });
-    
-gulp.watch("./styles/less/**/*.less").on("change", browserSync.reload);
-gulp.watch("./*.html").on("change", browserSync.reload);
-gulp.watch("./scripts/*.js").on("change", browserSync.reload);     
-});
 
 
 //DEFAULT TASK
 
-gulp.task("default", gulp.parallel("imgMini", "watch", "lesscss", "browser-sync"));
+gulp.task("default", ["watchReload"]);
+
+
+
 
 
